@@ -7,7 +7,8 @@
   --color-text: #1d1b18;
   --color-muted: #6f6a60;
   --color-border: #ded8cc;
-  --color-accent: #8a4f2a;
+  --color-accent: #513fd4;
+  --color-accent-text: #f4f1ff;
   --color-code-background: #eee8dc;
   --color-quote-background: #fffaf1;
 }
@@ -19,7 +20,8 @@ html[data-theme="dark"] {
   --color-text: #f3f0e8;
   --color-muted: #b7b0a4;
   --color-border: #3b3b37;
-  --color-accent: #d39a67;
+  --color-accent: #321cda;
+  --color-accent-text: #f4f1ff;
   --color-code-background: #292b2d;
   --color-quote-background: #1d2022;
 }
@@ -28,7 +30,12 @@ html {
   background: var(--color-background);
   color: var(--color-text);
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
     sans-serif;
 }
 
@@ -38,8 +45,10 @@ body {
   margin: 0;
 }
 
-a {
-  color: inherit;
+@layer base {
+  a {
+    color: inherit;
+  }
 }
 
 [data-theme-value][aria-pressed="true"],

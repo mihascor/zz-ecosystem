@@ -19,7 +19,7 @@ const { categoryTree, currentSlug } = Astro.props;
               {category.category}
             </summary>
             <a
-              class="mt-2 inline-block text-sm text-[var(--color-accent)]"
+              class="mt-2 inline-block text-sm text-[var(--color-text)]"
               href={`/categories/${encodeURIComponent(category.category)}`}
             >
               Открыть категорию
@@ -32,7 +32,7 @@ const { categoryTree, currentSlug } = Astro.props;
                       {subcategory.subcategory}
                     </summary>
                     <a
-                      class="mt-2 inline-block text-sm text-[var(--color-accent)]"
+                      class="mt-2 inline-block text-sm text-[var(--color-text)]"
                       href={`/subcategories/${encodeURIComponent(subcategory.subcategory)}`}
                     >
                       Открыть подкатегорию
@@ -44,7 +44,7 @@ const { categoryTree, currentSlug } = Astro.props;
                             class:list={[
                               'block rounded-md px-2 py-1.5 text-sm',
                               article.data.slug === currentSlug
-                                ? 'bg-[var(--color-accent)] text-[var(--color-surface)]'
+                                ? 'bg-[var(--color-accent)] text-[var(--color-accent-text)]'
                                 : 'text-[var(--color-muted)]',
                             ]}
                             href={`/articles/${article.data.slug}`}
