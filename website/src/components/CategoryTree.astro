@@ -1,0 +1,66 @@
+---
+import type { CategoryTree as CategoryTreeData } from '@utils/categories';
+
+interface Props {
+  categoryTree: CategoryTreeData;
+  currentSlug?: string;
+}
+
+const { categoryTree, currentSlug } = Astro.props;
+---
+
+<nav aria-label="Дерево статей">
+  <ul class="space-y-5">
+    {
+      categoryTree.map((category) => (
+        <li>
+          <details open data-category-node>
+            <summary class="cursor-pointer font-semibold">
+              {category.category}
+            </summary>
+            <a
+              class="mt-2 inline-block text-sm text-[var(--color-accent)]"
+              href={`/categories/${encodeURIComponent(category.category)}`}
+            >
+              Открыть категорию
+            </a>
+            <ul class="mt-3 space-y-4 border-l border-[var(--color-border)] pl-4">
+              {category.subcategories.map((subcategory) => (
+                <li>
+                  <details open data-category-node>
+                    <summary class="cursor-pointer text-sm font-medium text-[var(--color-muted)]">
+                      {subcategory.subcategory}
+                    </summary>
+                    <a
+                      class="mt-2 inline-block text-sm text-[var(--color-accent)]"
+                      href={`/subcategories/${encodeURIComponent(subcategory.subcategory)}`}
+                    >
+                      Открыть подкатегорию
+                    </a>
+                    <ul class="mt-2 space-y-2">
+                      {subcategory.articles.map((article) => (
+                        <li>
+                          <a
+                            class:list={[
+                              'block rounded-md px-2 py-1.5 text-sm',
+                              article.data.slug === currentSlug
+                                ? 'bg-[var(--color-accent)] text-[var(--color-surface)]'
+                                : 'text-[var(--color-muted)]',
+                            ]}
+                            href={`/articles/${article.data.slug}`}
+                          >
+                            {article.data.title}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

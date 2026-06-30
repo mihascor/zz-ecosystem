@@ -1,4 +1,6 @@
 ---
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import TagList from '@components/TagList.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import type { ArticleEntry } from '@utils/articles';
 import { getCategoryTree } from '@utils/categories';
@@ -37,11 +39,7 @@ const tags = [...new Set(articles.flatMap((article) => article.data.tags))].sort
   description={`Статьи категории ${category}.`}
 >
   <main class="mx-auto max-w-6xl px-6 py-12">
-    <nav class="text-sm text-[var(--color-muted)]">
-      <a href="/">Главная</a>
-      <span class="mx-2">/</span>
-      <span>{category}</span>
-    </nav>
+    <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: category }]} />
 
     <header class="mt-8">
       <h1 class="text-4xl font-semibold">{category}</h1>
@@ -86,17 +84,8 @@ const tags = [...new Set(articles.flatMap((article) => article.data.tags))].sort
 
     <section class="mt-10 border-t border-[var(--color-border)] pt-8">
       <h2 class="text-2xl font-semibold">Теги категории</h2>
-      <div class="mt-5 flex flex-wrap gap-2">
-        {
-          tags.map((tag) => (
-            <a
-              class="rounded-md border border-[var(--color-border)] px-3 py-2 text-sm"
-              href={`/tags/${encodeURIComponent(tag)}`}
-            >
-              {tag}
-            </a>
-          ))
-        }
+      <div class="mt-5">
+        <TagList tags={tags} />
       </div>
     </section>
   </main>

@@ -1,7 +1,12 @@
 ---
+import ArticleNavigation from '@components/ArticleNavigation.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import Sidebar from '@components/Sidebar.astro';
+import TagList from '@components/TagList.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { render } from 'astro:content';
 import { getPublishedArticles, type ArticleEntry } from '@utils/articles';
+import { getCategoryTree, type CategoryTree } from '@utils/categories';
 import { findArticleNavigation } from '@utils/navigation';
 
 export async function getStaticPaths() {
@@ -24,6 +29,7 @@ interface Props {
 }
 
 const { article, navigation } = Astro.props;
+const categoryTree: CategoryTree = await getCategoryTree();
 const { Content } = await render(article);
 ---
 
@@ -31,98 +37,54 @@ const { Content } = await render(article);
   title={`${article.data.title} / Запретные знания`}
   description={article.data.description}
 >
-  <main class="mx-auto max-w-4xl px-6 py-12">
-    <nav class="text-sm text-[var(--color-muted)]">
-      <a href="/">Главная</a>
-      <span class="mx-2">/</span>
-      <a href="/articles">Статьи</a>
-      <span class="mx-2">/</span>
-      <span>{article.data.title}</span>
-    </nav>
+  <main class="mx-auto grid max-w-7xl gap-8 px-6 py-12 lg:grid-cols-[320px_1fr]">
+    <Sidebar categoryTree={categoryTree} currentSlug={article.data.slug} />
 
-    <article class="mt-8">
-      <header>
-        <p class="text-sm text-[var(--color-muted)]">
-          {article.data.date} /{' '}
-          <a href={`/categories/${encodeURIComponent(article.data.category)}`}>
-            {article.data.category}
-          </a>{' '}
-          /{' '}
-          <a
-            href={`/subcategories/${encodeURIComponent(article.data.subcategory)}`}
-          >
-            {article.data.subcategory}
-          </a>
-        </p>
-        <h1 class="mt-3 text-4xl font-semibold leading-tight">
-          {article.data.title}
-        </h1>
-        <p class="mt-4 text-lg leading-8 text-[var(--color-muted)]">
-          {article.data.description}
-        </p>
-        <div class="mt-5 flex flex-wrap gap-2">
-          {
-            article.data.tags.map((tag) => (
-              <a
-                class="rounded-md border border-[var(--color-border)] px-3 py-1 text-sm"
-                href={`/tags/${encodeURIComponent(tag)}`}
-              >
-                {tag}
-              </a>
-            ))
-          }
+    <div>
+      <Breadcrumbs
+        items={[
+          { label: 'Главная', href: '/' },
+          { label: 'Статьи', href: '/articles' },
+          { label: article.data.title },
+        ]}
+      />
+
+      <article class="mt-8">
+        <header>
+          <p class="text-sm text-[var(--color-muted)]">
+            {article.data.date} /{' '}
+            <a href={`/categories/${encodeURIComponent(article.data.category)}`}>
+              {article.data.category}
+            </a>{' '}
+            /{' '}
+            <a
+              href={`/subcategories/${encodeURIComponent(article.data.subcategory)}`}
+            >
+              {article.data.subcategory}
+            </a>
+          </p>
+          <h1 class="mt-3 text-4xl font-semibold leading-tight">
+            {article.data.title}
+          </h1>
+          <p class="mt-4 text-lg leading-8 text-[var(--color-muted)]">
+            {article.data.description}
+          </p>
+          <div class="mt-5">
+            <TagList tags={article.data.tags} />
+          </div>
+          <img
+            src={article.data.cover}
+            alt=""
+            class="mt-8 aspect-video w-full rounded-md border border-[var(--color-border)] object-cover"
+          />
+        </header>
+
+        <div class="article-content mt-10">
+          <Content />
         </div>
-        <img
-          src={article.data.cover}
-          alt=""
-          class="mt-8 aspect-video w-full rounded-md border border-[var(--color-border)] object-cover"
-        />
-      </header>
+      </article>
 
-      <div class="article-content mt-10">
-        <Content />
-      </div>
-    </article>
-
-    <nav class="mt-12 grid gap-4 border-t border-[var(--color-border)] pt-8 md:grid-cols-2">
-      <div>
-        {
-          navigation.previous ? (
-            <a
-              class="block rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-4"
-              href={`/articles/${navigation.previous.data.slug}`}
-            >
-              <span class="text-sm text-[var(--color-muted)]">
-                Предыдущая статья
-              </span>
-              <strong class="mt-1 block">{navigation.previous.data.title}</strong>
-            </a>
-          ) : (
-            <span class="block rounded-md border border-[var(--color-border)] p-4 text-sm text-[var(--color-muted)]">
-              Предыдущей статьи нет
-            </span>
-          )
-        }
-      </div>
-      <div>
-        {
-          navigation.next ? (
-            <a
-              class="block rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-4 md:text-right"
-              href={`/articles/${navigation.next.data.slug}`}
-            >
-              <span class="text-sm text-[var(--color-muted)]">
-                Следующая статья
-              </span>
-              <strong class="mt-1 block">{navigation.next.data.title}</strong>
-            </a>
-          ) : (
-            <span class="block rounded-md border border-[var(--color-border)] p-4 text-sm text-[var(--color-muted)] md:text-right">
-              Следующей статьи нет
-            </span>
-          )
-        }
-      </div>
-    </nav>
+      <ArticleNavigation navigation={navigation} />
+    </div>
   </main>
 </BaseLayout>

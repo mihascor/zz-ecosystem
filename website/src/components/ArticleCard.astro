@@ -1,0 +1,55 @@
+---
+import type { ArticleEntry } from '@utils/articles';
+import TagList from './TagList.astro';
+
+interface Props {
+  article: ArticleEntry;
+  showCover?: boolean;
+  showTags?: boolean;
+  compact?: boolean;
+}
+
+const {
+  article,
+  showCover = true,
+  showTags = true,
+  compact = false,
+} = Astro.props;
+---
+
+<article
+  class:list={[
+    'rounded-md border border-[var(--color-border)] bg-[var(--color-surface)]',
+    showCover && !compact ? 'grid gap-5 p-5 md:grid-cols-[240px_1fr]' : 'p-5',
+  ]}
+>
+  {
+    showCover && !compact && (
+      <img
+        src={article.data.cover}
+        alt=""
+        class="aspect-video w-full rounded-md object-cover md:aspect-[4/3]"
+        loading="lazy"
+      />
+    )
+  }
+  <div>
+    <p class="text-sm text-[var(--color-muted)]">
+      {article.data.date} /{' '}
+      <a href={`/categories/${encodeURIComponent(article.data.category)}`}>
+        {article.data.category}
+      </a>{' '}
+      /{' '}
+      <a href={`/subcategories/${encodeURIComponent(article.data.subcategory)}`}>
+        {article.data.subcategory}
+      </a>
+    </p>
+    <h2 class:list={['mt-2 font-semibold', compact ? 'text-xl' : 'text-2xl']}>
+      <a href={`/articles/${article.data.slug}`}>{article.data.title}</a>
+    </h2>
+    <p class:list={['mt-3 text-[var(--color-muted)]', compact ? 'text-sm leading-6' : 'leading-7']}>
+      {article.data.description}
+    </p>
+    {showTags && <div class="mt-4"><TagList tags={article.data.tags} /></div>}
+  </div>
+</article>
