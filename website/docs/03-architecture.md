@@ -60,11 +60,11 @@ website/
 │  │  └─ CategoryTree.astro
 │  │
 │  ├─ content/
-│  │  ├─ config.ts
 │  │  └─ articles/
 │  │     ├─ 001-vvedenie.md
 │  │     ├─ 002-glava-1.md
 │  │     └─ 003-glava-2.md
+│  ├─ content.config.ts
 │  │
 │  ├─ layouts/
 │  │  ├─ BaseLayout.astro
@@ -106,7 +106,7 @@ website/
 ## Основные модули
 
 - `src/content/articles/` хранит статьи.
-- `src/content/config.ts` описывает схему контента.
+- `src/content.config.ts` описывает схему контента.
 - `src/utils/articles.ts` отвечает за получение и фильтрацию статей.
 - `src/utils/categories.ts` отвечает за группировку по категориям и подкатегориям.
 - `src/utils/tags.ts` отвечает за работу с тегами.
