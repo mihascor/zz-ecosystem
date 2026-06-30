@@ -1,0 +1,71 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getPublishedArticles } from '@utils/articles';
+
+const articles = await getPublishedArticles();
+---
+
+<BaseLayout
+  title="Все статьи / Запретные знания"
+  description="Список опубликованных статей проекта «Запретные знания»."
+>
+  <main class="mx-auto max-w-6xl px-6 py-12">
+    <nav class="text-sm text-[var(--color-muted)]">
+      <a href="/">Главная</a>
+    </nav>
+
+    <header class="mt-8">
+      <h1 class="text-4xl font-semibold">Все статьи</h1>
+      <p class="mt-4 max-w-2xl leading-7 text-[var(--color-muted)]">
+        Опубликованные материалы отсортированы по порядку чтения.
+      </p>
+    </header>
+
+    <section class="mt-10 grid gap-6">
+      {
+        articles.map((article) => (
+          <article class="grid gap-5 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-5 md:grid-cols-[240px_1fr]">
+            <img
+              src={article.data.cover}
+              alt=""
+              class="aspect-video w-full rounded-md object-cover md:aspect-[4/3]"
+              loading="lazy"
+            />
+            <div>
+              <p class="text-sm text-[var(--color-muted)]">
+                {article.data.date} /{' '}
+                <a href={`/categories/${encodeURIComponent(article.data.category)}`}>
+                  {article.data.category}
+                </a>{' '}
+                /{' '}
+                <a
+                  href={`/subcategories/${encodeURIComponent(article.data.subcategory)}`}
+                >
+                  {article.data.subcategory}
+                </a>
+              </p>
+              <h2 class="mt-2 text-2xl font-semibold">
+                <a href={`/articles/${article.data.slug}`}>
+                  {article.data.title}
+                </a>
+              </h2>
+              <p class="mt-3 leading-7 text-[var(--color-muted)]">
+                {article.data.description}
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {article.data.tags.map((tag) => (
+                  <a
+                    class="rounded-md border border-[var(--color-border)] px-3 py-1 text-sm"
+                    href={`/tags/${encodeURIComponent(tag)}`}
+                  >
+                    {tag}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </section>
+  </main>
+</BaseLayout>
