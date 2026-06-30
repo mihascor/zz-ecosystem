@@ -1,6 +1,7 @@
 ---
 import ArticleCard from '@components/ArticleCard.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
+import Sidebar from '@components/Sidebar.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import type { ArticleEntry } from '@utils/articles';
 import { getCategoryTree } from '@utils/categories';
@@ -29,34 +30,39 @@ interface Props {
 }
 
 const { category, subcategory, articles } = Astro.props;
+const categoryTree = await getCategoryTree();
 ---
 
 <BaseLayout
   title={`${subcategory} / Запретные знания`}
   description={`Статьи подкатегории ${subcategory}.`}
 >
-  <main class="mx-auto max-w-5xl px-6 py-12">
-    <Breadcrumbs
-      items={[
-        { label: 'Главная', href: '/' },
-        { label: category, href: `/categories/${encodeURIComponent(category)}` },
-        { label: subcategory },
-      ]}
-    />
+  <main class="mx-auto grid max-w-7xl gap-8 px-6 py-12 lg:grid-cols-[320px_1fr]">
+    <Sidebar categoryTree={categoryTree} />
 
-    <header class="mt-8">
-      <h1 class="text-4xl font-semibold">{subcategory}</h1>
-      <p class="mt-4 text-[var(--color-muted)]">
-        Статьи отсортированы по порядку чтения.
-      </p>
-    </header>
+    <div>
+      <Breadcrumbs
+        items={[
+          { label: 'Главная', href: '/' },
+          { label: category, href: `/categories/${encodeURIComponent(category)}` },
+          { label: subcategory },
+        ]}
+      />
 
-    <section class="mt-10 grid gap-5">
-      {
-        articles.map((article) => (
-          <ArticleCard article={article} showCover={false} showTags={false} />
-        ))
-      }
-    </section>
+      <header class="mt-8">
+        <h1 class="text-4xl font-semibold">{subcategory}</h1>
+        <p class="mt-4 text-[var(--color-muted)]">
+          Статьи отсортированы по порядку чтения.
+        </p>
+      </header>
+
+      <section class="mt-10 grid gap-5">
+        {
+          articles.map((article) => (
+            <ArticleCard article={article} showCover={false} showTags={false} />
+          ))
+        }
+      </section>
+    </div>
   </main>
 </BaseLayout>

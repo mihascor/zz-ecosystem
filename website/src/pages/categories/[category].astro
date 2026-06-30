@@ -1,5 +1,6 @@
 ---
 import Breadcrumbs from '@components/Breadcrumbs.astro';
+import Sidebar from '@components/Sidebar.astro';
 import TagList from '@components/TagList.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import type { ArticleEntry } from '@utils/articles';
@@ -28,6 +29,7 @@ interface Props {
 }
 
 const { category, subcategories } = Astro.props;
+const categoryTree = await getCategoryTree();
 const articles = subcategories.flatMap((subcategory) => subcategory.articles);
 const tags = [...new Set(articles.flatMap((article) => article.data.tags))].sort(
   (firstTag, secondTag) => firstTag.localeCompare(secondTag, 'ru'),
@@ -38,55 +40,59 @@ const tags = [...new Set(articles.flatMap((article) => article.data.tags))].sort
   title={`${category} / Запретные знания`}
   description={`Статьи категории ${category}.`}
 >
-  <main class="mx-auto max-w-6xl px-6 py-12">
-    <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: category }]} />
+  <main class="mx-auto grid max-w-7xl gap-8 px-6 py-12 lg:grid-cols-[320px_1fr]">
+    <Sidebar categoryTree={categoryTree} />
 
-    <header class="mt-8">
-      <h1 class="text-4xl font-semibold">{category}</h1>
-      <p class="mt-4 text-[var(--color-muted)]">
-        {articles.length} опубликованные статьи
-      </p>
-    </header>
+    <div>
+      <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: category }]} />
 
-    <section class="mt-8">
-      <h2 class="text-2xl font-semibold">Подкатегории</h2>
-      <div class="mt-5 grid gap-5">
-        {
-          subcategories.map((subcategory) => (
-            <article class="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-              <h3 class="text-xl font-semibold">
-                <a
-                  href={`/subcategories/${encodeURIComponent(subcategory.subcategory)}`}
-                >
-                  {subcategory.subcategory}
-                </a>
-              </h3>
-              <ul class="mt-4 space-y-3">
-                {subcategory.articles.map((article) => (
-                  <li>
-                    <a
-                      class="font-medium text-[var(--color-accent)]"
-                      href={`/articles/${article.data.slug}`}
-                    >
-                      {article.data.title}
-                    </a>
-                    <p class="mt-1 text-sm text-[var(--color-muted)]">
-                      {article.data.description}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))
-        }
-      </div>
-    </section>
+      <header class="mt-8">
+        <h1 class="text-4xl font-semibold">{category}</h1>
+        <p class="mt-4 text-[var(--color-muted)]">
+          {articles.length} опубликованные статьи
+        </p>
+      </header>
 
-    <section class="mt-10 border-t border-[var(--color-border)] pt-8">
-      <h2 class="text-2xl font-semibold">Теги категории</h2>
-      <div class="mt-5">
-        <TagList tags={tags} />
-      </div>
-    </section>
+      <section class="mt-8">
+        <h2 class="text-2xl font-semibold">Подкатегории</h2>
+        <div class="mt-5 grid gap-5">
+          {
+            subcategories.map((subcategory) => (
+              <article class="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+                <h3 class="text-xl font-semibold">
+                  <a
+                    href={`/subcategories/${encodeURIComponent(subcategory.subcategory)}`}
+                  >
+                    {subcategory.subcategory}
+                  </a>
+                </h3>
+                <ul class="mt-4 space-y-3">
+                  {subcategory.articles.map((article) => (
+                    <li>
+                      <a
+                        class="font-medium text-[var(--color-accent)]"
+                        href={`/articles/${article.data.slug}`}
+                      >
+                        {article.data.title}
+                      </a>
+                      <p class="mt-1 text-sm text-[var(--color-muted)]">
+                        {article.data.description}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="mt-10 border-t border-[var(--color-border)] pt-8">
+        <h2 class="text-2xl font-semibold">Теги категории</h2>
+        <div class="mt-5">
+          <TagList tags={tags} />
+        </div>
+      </section>
+    </div>
   </main>
 </BaseLayout>

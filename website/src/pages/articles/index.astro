@@ -1,32 +1,39 @@
 ---
 import ArticleCard from '@components/ArticleCard.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
+import Sidebar from '@components/Sidebar.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getPublishedArticles } from '@utils/articles';
+import { getCategoryTree } from '@utils/categories';
 
 const articles = await getPublishedArticles();
+const categoryTree = await getCategoryTree();
 ---
 
 <BaseLayout
   title="Все статьи / Запретные знания"
   description="Список опубликованных статей проекта «Запретные знания»."
 >
-  <main class="mx-auto max-w-6xl px-6 py-12">
-    <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Статьи' }]} />
+  <main class="mx-auto grid max-w-7xl gap-8 px-6 py-12 lg:grid-cols-[320px_1fr]">
+    <Sidebar categoryTree={categoryTree} />
 
-    <header class="mt-8">
-      <h1 class="text-4xl font-semibold">Все статьи</h1>
-      <p class="mt-4 max-w-2xl leading-7 text-[var(--color-muted)]">
-        Опубликованные материалы отсортированы по порядку чтения.
-      </p>
-    </header>
+    <div>
+      <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Статьи' }]} />
 
-    <section class="mt-10 grid gap-6">
-      {
-        articles.map((article) => (
-          <ArticleCard article={article} />
-        ))
-      }
-    </section>
+      <header class="mt-8">
+        <h1 class="text-4xl font-semibold">Все статьи</h1>
+        <p class="mt-4 max-w-2xl leading-7 text-[var(--color-muted)]">
+          Опубликованные материалы отсортированы по порядку чтения.
+        </p>
+      </header>
+
+      <section class="mt-10 grid gap-6">
+        {
+          articles.map((article) => (
+            <ArticleCard article={article} />
+          ))
+        }
+      </section>
+    </div>
   </main>
 </BaseLayout>

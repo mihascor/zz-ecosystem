@@ -33,7 +33,14 @@ const setTreeState = (state: SidebarTreeState) => {
 };
 
 const initSidebar = () => {
-  const sidebarState = getStoredValue(sidebarStorageKey, sidebarStates, 'visible');
+  const defaultSidebarState = window.matchMedia('(max-width: 1023px)').matches
+    ? 'hidden'
+    : 'visible';
+  const sidebarState = getStoredValue(
+    sidebarStorageKey,
+    sidebarStates,
+    defaultSidebarState,
+  );
   const treeState = getStoredValue(sidebarTreeStorageKey, sidebarTreeStates, 'expanded');
 
   setSidebarState(sidebarState);

@@ -57,6 +57,19 @@ a {
   display: none;
 }
 
+@media (max-width: 1023px) {
+  [data-sidebar-state="visible"] [data-sidebar-panel] {
+    bottom: 1rem;
+    left: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
+    z-index: 50;
+  }
+}
+
 .article-content {
   font-size: 1.0625rem;
   line-height: 1.8;
