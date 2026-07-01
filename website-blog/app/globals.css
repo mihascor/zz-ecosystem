@@ -5,3 +5,8 @@
 html {
   scrollbar-gutter: stable;
 }
+
+.site-logo {
+  mask: url("/logo.svg") center / contain no-repeat;
+  -webkit-mask: url("/logo.svg") center / contain no-repeat;
+}
