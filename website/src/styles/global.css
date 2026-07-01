@@ -2,11 +2,12 @@
 
 :root {
   color-scheme: light;
-  --color-background: #f8f7f2;
+  --color-background: #e9e6d6;
   --color-surface: #ffffff;
   --color-text: #1d1b18;
   --color-muted: #6f6a60;
   --color-border: #ded8cc;
+  --border-width: 2px;
   --color-accent: #513fd4;
   --color-accent-text: #f4f1ff;
   --color-code-background: #eee8dc;
@@ -15,12 +16,12 @@
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  --color-background: #151617;
-  --color-surface: #202224;
+  --color-background: #0b1f33;
+  --color-surface: #2f3235;
   --color-text: #f3f0e8;
   --color-muted: #b7b0a4;
   --color-border: #3b3b37;
-  --color-accent: #321cda;
+  --color-accent: #5745db;
   --color-accent-text: #f4f1ff;
   --color-code-background: #292b2d;
   --color-quote-background: #1d2022;
@@ -48,6 +49,33 @@ body {
 @layer base {
   a {
     color: inherit;
+  }
+}
+
+@layer components {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+  }
+
+  .site-border {
+    border: var(--border-width) solid var(--color-border);
+  }
+
+  .site-border-t {
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  .site-border-b {
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  .site-border-l {
+    border-left: var(--border-width) solid var(--color-border);
   }
 }
 
@@ -145,7 +173,7 @@ body {
 
 .article-content pre {
   background: var(--color-code-background);
-  border: 1px solid var(--color-border);
+  border: var(--border-width) solid var(--color-border);
   border-radius: 6px;
   overflow-x: auto;
   padding: 1rem;

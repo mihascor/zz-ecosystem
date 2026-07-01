@@ -13,7 +13,7 @@ const { categoryTree, currentSlug } = Astro.props;
 
 <div data-sidebar-root data-sidebar-state="visible">
   <button
-    class="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm font-medium"
+    class="site-border rounded-md bg-[var(--color-surface)] px-3 py-2 text-sm font-medium"
     type="button"
     data-sidebar-open
   >
@@ -21,7 +21,7 @@ const { categoryTree, currentSlug } = Astro.props;
   </button>
 
   <aside
-    class="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-4"
+    class="site-border rounded-md bg-[var(--color-surface)] p-4"
     data-sidebar-panel
   >
     <div class="flex items-center justify-between gap-3">
@@ -32,14 +32,14 @@ const { categoryTree, currentSlug } = Astro.props;
     </div>
     <div class="mt-4 flex flex-wrap gap-2">
       <button
-        class="rounded-md border border-[var(--color-border)] px-2.5 py-1.5 text-sm"
+        class="site-border rounded-md px-2.5 py-1.5 text-sm"
         type="button"
         data-category-expand-all
       >
         Развернуть все
       </button>
       <button
-        class="rounded-md border border-[var(--color-border)] px-2.5 py-1.5 text-sm"
+        class="site-border rounded-md px-2.5 py-1.5 text-sm"
         type="button"
         data-category-collapse-all
       >

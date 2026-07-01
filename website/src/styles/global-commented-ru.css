@@ -36,6 +36,9 @@
   /* Цвет границ, линий, разделителей. */
   --color-border: #ded8cc;
 
+  /* Толщина стандартных рамок и разделителей сайта. */
+  --border-width: 1px;
+
   /* Акцентный цвет: ссылки, активные элементы, выделения. */
   --color-accent: #97d868;
 
@@ -129,6 +132,47 @@ body {
   a {
     /* Ссылка наследует цвет родителя, если отдельный класс цвета не задан. */
     color: inherit;
+  }
+}
+
+/* Общие классы стандартных рамок сайта. */
+@layer components {
+  .site-header {
+    /* Приклеивает шапку к верхней границе окна при прокрутке. */
+    position: sticky;
+
+    /* Шапка держится ровно у верхнего края. */
+    top: 0;
+
+    /* Поднимает шапку над контентом, чтобы страница уходила под неё. */
+    z-index: 40;
+
+    /* Полупрозрачный фон из цвета поверхности текущей темы. */
+    background: color-mix(in srgb, var(--color-surface) 72%, transparent);
+
+    /* Матовый эффект стекла: размытие и лёгкое усиление насыщенности фона под шапкой. */
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+  }
+
+  .site-border {
+    /* Полная рамка с глобальной толщиной и цветом темы. */
+    border: var(--border-width) solid var(--color-border);
+  }
+
+  .site-border-t {
+    /* Верхняя граница с глобальной толщиной и цветом темы. */
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  .site-border-b {
+    /* Нижняя граница с глобальной толщиной и цветом темы. */
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  .site-border-l {
+    /* Левая граница с глобальной толщиной и цветом темы. */
+    border-left: var(--border-width) solid var(--color-border);
   }
 }
 
@@ -324,7 +368,7 @@ body {
   background: var(--color-code-background);
 
   /* Граница вокруг блока кода. */
-  border: 1px solid var(--color-border);
+  border: var(--border-width) solid var(--color-border);
 
   /* Скругление углов блока кода. */
   border-radius: 6px;
