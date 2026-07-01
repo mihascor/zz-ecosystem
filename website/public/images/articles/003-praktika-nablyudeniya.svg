@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
-  <title id="title">Практика наблюдения</title>
-  <desc id="desc">Минималистичная обложка практической статьи.</desc>
-  <rect width="1200" height="675" fill="#f8f7f2"/>
-  <rect x="106" y="82" width="988" height="511" rx="8" fill="#ffffff" stroke="#ded8cc" stroke-width="3"/>
-  <circle cx="600" cy="338" r="156" fill="none" stroke="#1d1b18" stroke-width="18"/>
-  <circle cx="600" cy="338" r="64" fill="#8a4f2a"/>
-  <path d="M600 150v70M600 456v70M412 338h70M718 338h70" stroke="#6f6a60" stroke-width="14" stroke-linecap="round"/>
-</svg>
