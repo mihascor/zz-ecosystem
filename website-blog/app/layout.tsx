@@ -25,8 +25,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <Link href="/" className="text-base font-semibold">
                   Запретные знания
                 </Link>
-                <ModeToggle />
                 <MainNav />
+                <div className="hidden md:block">
+                  <ModeToggle />
+                </div>
               </div>
             </header>
             <main className="flex-1">{children}</main>

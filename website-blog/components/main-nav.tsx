@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
+import { ModeToggle } from "@/components/mode-toggle"
 
 const navItems = [
   { href: "/", label: "Главная" },
@@ -103,6 +104,10 @@ export function MainNav() {
               </Link>
             )
           })}
+          <div className="mt-2 flex items-center justify-between border-t border-slate-200 px-3 pt-3 text-slate-600 dark:border-slate-800 dark:text-slate-300">
+            <span>Тема</span>
+            <ModeToggle />
+          </div>
         </nav>
       )}
     </div>
