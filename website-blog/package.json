@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:poll": "set WATCHPACK_POLLING=true&& set CHOKIDAR_USEPOLLING=true&& next dev",
     "build": "next build",
     "preview": "next build && next start",
     "start": "next start",

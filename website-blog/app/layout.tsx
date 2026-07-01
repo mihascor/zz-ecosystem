@@ -3,6 +3,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Analytics } from "@/components/analytics"
 import { ModeToggle } from "@/components/mode-toggle"
+import { MainNav } from "@/components/main-nav"
 
 export const metadata = {
   title: "Запретные знания",
@@ -20,16 +21,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="mx-auto flex min-h-screen max-w-3xl flex-col px-4 py-8 sm:px-6">
             <header className="mb-10">
-              <div className="flex items-center justify-between gap-4">
+              <div className="relative flex items-center justify-between gap-4">
                 <Link href="/" className="text-base font-semibold">
                   Запретные знания
                 </Link>
                 <ModeToggle />
-                <nav className="ml-auto flex items-center gap-4 text-sm font-medium text-slate-700 dark:text-slate-200 sm:gap-6">
-                  <Link href="/">Главная</Link>
-                  <Link href="/blog">Блог</Link>
-                  <Link href="/tags">Теги</Link>
-                </nav>
+                <MainNav />
               </div>
             </header>
             <main className="flex-1">{children}</main>
