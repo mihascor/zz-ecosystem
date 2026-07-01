@@ -12,7 +12,7 @@ interface TagPageProps {
 
 export function generateStaticParams(): TagPageProps["params"][] {
   return Object.keys(getTagCounts(allPosts)).map((tag) => ({
-    tag: encodeURIComponent(tag),
+    tag,
   }))
 }
 

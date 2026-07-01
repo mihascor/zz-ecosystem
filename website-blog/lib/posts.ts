@@ -1,7 +1,7 @@
 import { type Post } from "contentlayer/generated"
 
-export function postHref(post: Pick<Post, "slugAsParams">) {
-  return `/blog/${post.slugAsParams}`
+export function postHref(post: Pick<Post, "section" | "slugAsParams">) {
+  return `/${post.section}/${post.slugAsParams}`
 }
 
 export function formatDate(date: string) {

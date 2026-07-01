@@ -1,8 +1,8 @@
+import { Metadata } from "next"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { allPosts } from "contentlayer/generated"
 
-import { Metadata } from "next"
-import Link from "next/link"
 import { Mdx } from "@/components/mdx-components"
 import { formatDate } from "@/lib/posts"
 
@@ -12,15 +12,17 @@ interface PostProps {
   }
 }
 
-async function getPostFromParams(params: PostProps["params"]) {
+const section = "how"
+
+function getPostFromParams(params: PostProps["params"]) {
   const slug = params?.slug?.join("/")
-  return allPosts.find((post) => post.slugAsParams === slug)
+  return allPosts.find(
+    (post) => post.section === section && post.slugAsParams === slug
+  )
 }
 
-export async function generateMetadata({
-  params,
-}: PostProps): Promise<Metadata> {
-  const post = await getPostFromParams(params)
+export function generateMetadata({ params }: PostProps): Metadata {
+  const post = getPostFromParams(params)
 
   if (!post) {
     return {}
@@ -32,14 +34,16 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams(): Promise<PostProps["params"][]> {
-  return allPosts.map((post) => ({
-    slug: post.slugAsParams.split("/"),
-  }))
+export function generateStaticParams(): PostProps["params"][] {
+  return allPosts
+    .filter((post) => post.section === section)
+    .map((post) => ({
+      slug: post.slugAsParams.split("/"),
+    }))
 }
 
-export default async function PostPage({ params }: PostProps) {
-  const post = await getPostFromParams(params)
+export default function HowPostPage({ params }: PostProps) {
+  const post = getPostFromParams(params)
 
   if (!post) {
     notFound()

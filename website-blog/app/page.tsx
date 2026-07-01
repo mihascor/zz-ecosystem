@@ -19,14 +19,14 @@ export default function Home() {
         <p>
           Почему ЗАПРЕТНЫЕ ЗНАНИЯ? Не потому, что их кто-то запретил и они
           недоступны, а потому, что мы их боимся и игнорируем, даже если знаем.
-          <Link href="/blog/zapretnye-znaniya"> Читать.</Link>
+          <Link href="/why/zapretnye-znaniya"> Читать.</Link>
         </p>
       </section>
       <section className="space-y-6">
         <div className="flex items-end justify-between gap-4">
           <h2 className="text-xl font-semibold">Последние статьи</h2>
           <Link
-            href="/blog"
+            href="/why"
             className="text-sm font-medium text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white"
           >
             Все статьи
