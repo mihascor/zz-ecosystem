@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .prose a {
+    color: #512dbd;
+    text-decoration: none;
+  }
+
+  .dark .prose a {
+    color: #669aed;
+  }
+}
+
 html {
   scrollbar-gutter: stable;
 }
