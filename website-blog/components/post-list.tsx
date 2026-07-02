@@ -1,7 +1,7 @@
 import { type Post } from "contentlayer/generated"
 import Link from "next/link"
 
-import { formatDate, postHref } from "@/lib/posts"
+import { postHref } from "@/lib/posts"
 
 interface PostListProps {
   posts: Post[]
@@ -15,12 +15,9 @@ export function PostList({ posts }: PostListProps) {
           key={post._id}
           className="border-b border-slate-200 pb-6 last:border-0 dark:border-slate-800"
         >
-          <div className="text-sm text-slate-500 dark:text-slate-400">
-            {formatDate(post.date)}
-          </div>
           <Link
             href={postHref(post)}
-            className="mt-2 block text-xl font-semibold hover:underline"
+            className="block text-xl font-semibold hover:underline"
           >
             {post.title}
           </Link>

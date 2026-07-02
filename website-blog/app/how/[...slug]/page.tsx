@@ -4,7 +4,6 @@ import { notFound } from "next/navigation"
 import { allPosts } from "contentlayer/generated"
 
 import { Mdx } from "@/components/mdx-components"
-import { formatDate } from "@/lib/posts"
 
 interface PostProps {
   params: {
@@ -51,9 +50,6 @@ export default function HowPostPage({ params }: PostProps) {
 
   return (
     <article className="prose py-6 dark:prose-invert">
-      <div className="not-prose mb-6 text-sm text-slate-500 dark:text-slate-400">
-        {formatDate(post.date)}
-      </div>
       <h1 className="mb-2">{post.title}</h1>
       {post.description && (
         <p className="mt-0 text-xl text-slate-700 dark:text-slate-200">
