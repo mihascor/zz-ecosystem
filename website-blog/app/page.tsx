@@ -17,15 +17,14 @@ export default function Home() {
         </p>
       </section>
       <section className="space-y-5">
-        <div className="relative aspect-video w-full overflow-hidden rounded">
-          <Image
-            src="/napolnenie/glavnaya/pochemu-i-kak.webp"
-            alt="Почему и как"
-            fill
-            sizes="(max-width: 768px) 100vw, 768px"
-            className="object-cover"
-          />
-        </div>
+        <Image
+          src="/napolnenie/glavnaya/pochemu-i-kak.webp"
+          alt="Почему и как"
+          width={168}
+          height={62}
+          sizes="(max-width: 768px) 100vw, 768px"
+          className="h-auto w-full rounded"
+        />
         <div className="space-y-2 text-lg font-semibold">
           <p>
             Почему мы так думаем?{" "}
